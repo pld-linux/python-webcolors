@@ -1,5 +1,5 @@
 %define 	module	webcolors
-Summary:	A library for working with color names and color value formats defined by the HTML and CSS specifications for use in documents on the Web.
+Summary:	A library for working with color names and color value formats defined by the HTML and CSS specifications for use in documents on the Web
 Name:		python-%module
 Version:	1.3.1
 Release:	0.2
@@ -14,10 +14,12 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-A library for working with color names and color value formats defined by the HTML and CSS specifications for use in documents on the Web.
+A library for working with color names and color value formats defined
+by the HTML and CSS specifications for use in documents on the Web.
 
-Support is included for the following formats (RGB colorspace only; conversion to/from HSL can be handled by the colorsys module in the Python standard library):
-
+Support is included for the following formats (RGB colorspace only;
+conversion to/from HSL can be handled by the colorsys module in the
+Python standard library):
 - Specification-defined color names
 - Six-digit hexadecimal
 - Three-digit hexadecimal
@@ -39,12 +41,14 @@ rm -rf $RPM_BUILD_ROOT
 	--skip-build \
 	--root $RPM_BUILD_ROOT
 
+%py_postclean
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{py_sitescriptdir}/%{module}.*
+%{py_sitescriptdir}/%{module}*.py[co]
 %if "%{py_ver}" > "2.4"
 %{py_sitescriptdir}/%{module}-%{version}-*.egg-info
 %endif

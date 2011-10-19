@@ -2,7 +2,7 @@
 Summary:	A library for working with color names and color value formats defined by the HTML and CSS specifications for use in documents on the Web
 Name:		python-%module
 Version:	1.3.1
-Release:	0.2
+Release:	1
 License:	BSD License
 Group:		Development/Languages
 URL:		http://www.bitbucket.org/ubernostrum/webcolors/overview/

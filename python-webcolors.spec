@@ -1,6 +1,6 @@
 %define 	module	webcolors
-Summary:	A library for working with color names and color value formats defined by the HTML and CSS specifications for use in documents on the Web
-Name:		python-%module
+Summary:	Library for working with sRGB color specifications as used in HTML and CSS
+Name:		python-%{module}
 Version:	1.3.1
 Release:	1
 License:	BSD License

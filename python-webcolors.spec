@@ -2,7 +2,7 @@
 Summary:	Library for working with sRGB color specifications as used in HTML and CSS
 Name:		python-%{module}
 Version:	1.3.1
-Release:	1
+Release:	2
 License:	BSD License
 Group:		Development/Languages
 URL:		http://www.bitbucket.org/ubernostrum/webcolors/overview/

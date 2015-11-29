@@ -8,7 +8,7 @@ Group:		Development/Languages
 URL:		http://www.bitbucket.org/ubernostrum/webcolors/overview/
 Source0:	http://bitbucket.org/ubernostrum/%{module}/downloads/%{module}-%{version}.tar.gz
 # Source0-md5:	aeb4f33be6c26ec7f76a78c2d88cfb0c
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	sed >= 4.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

@@ -109,13 +109,13 @@ Dokumentacja do modułu Pythona webcolors.
 %if %{with python2}
 %py_build
 
-%{__python} -m unittest tests
+%{__python} -m unittest discover -s tests
 %endif
 
 %if %{with python3}
 %py3_build
 
-%{__python3} -m unittest tests
+%{__python3} -m unittest discover -s tests
 %endif
 
 %if %{with doc}

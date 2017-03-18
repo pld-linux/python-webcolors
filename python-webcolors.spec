@@ -1,15 +1,33 @@
+#
+# Conditional build:
+%bcond_without	python2	# CPython 2.x module
+%bcond_without	python3	# CPython 3.x module
+%bcond_without	doc	# Sphinx documentation
+%bcond_without	tests	# unit tests
+
 %define 	module	webcolors
 Summary:	Library for working with sRGB color specifications as used in HTML and CSS
+Summary(pl.UTF-8):	Biblioteka do pracy z definicjami kolorów sRGB używanymi w formatach HTML i CSS
 Name:		python-%{module}
-Version:	1.3.1
-Release:	2
-License:	BSD License
-Group:		Development/Languages
-URL:		http://www.bitbucket.org/ubernostrum/webcolors/overview/
-Source0:	http://bitbucket.org/ubernostrum/%{module}/downloads/%{module}-%{version}.tar.gz
-# Source0-md5:	aeb4f33be6c26ec7f76a78c2d88cfb0c
-BuildRequires:	rpmbuild(macros) >= 1.710
+Version:	1.7
+Release:	1
+License:	BSD
+Group:		Libraries/Python
+Source0:	https://pypi.python.org/packages/1c/11/d9fb5a7c872a941ad8b30a4be191253d5a9028834c4d69eab55bb6bc60be/%{module}-%{version}.tar.gz
+# Source0-md5:	4733fa1077f680bbdd918cdef1e32c11
+URL:		https://github.com/ubernostrum/webcolors
+%if %{with python2}
+BuildRequires:	python-modules >= 1:2.7
+%endif
+%if %{with python3}
+Requires:	python3-modules >= 1:3.3
+%endif
+BuildRequires:	rpmbuild(macros) >= 1.714
+%if %{with doc}
+BuildRequires:	sphinx-pdg
+%endif
 BuildRequires:	sed >= 4.0
+Requires:	python-modules >= 1:2.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -26,27 +44,119 @@ Python standard library):
 - Integer rgb() triplet
 - Percentage rgb() triple
 
+%description -l pl.UTF-8
+Biblioteka do pracy z nazwami kolorów oraz formatami wartości kolorów
+określonymi w specyfikacjach HTML i CSS, przeznaczonych do użycia w
+dokumentach WWW.
+
+Obsługiwane są następujące formaty (tylko przestrzeń nazw RGB;
+konwersję do/z HSL można uzyskać korzystając z modułu colorsys
+biblioteki standardowej Pythona):
+- nazwy kolorów określone w specyfikacji
+- sześciocyfrowe wartości szesnastkowe
+- trzycyfrowe wartości szesnastkowe
+- trójki całkowite rgb()
+- trójki procentowe rgb()
+
+%package -n python3-%{module}
+Summary:	Library for working with sRGB color specifications as used in HTML and CSS
+Summary(pl.UTF-8):	Biblioteka do pracy z definicjami kolorów sRGB używanymi w formatach HTML i CSS
+Group:		Libraries/Python
+Requires:	python3-modules >= 1:3.3
+
+%description -n python3-%{module}
+A library for working with color names and color value formats defined
+by the HTML and CSS specifications for use in documents on the Web.
+
+Support is included for the following formats (RGB colorspace only;
+conversion to/from HSL can be handled by the colorsys module in the
+Python standard library):
+- Specification-defined color names
+- Six-digit hexadecimal
+- Three-digit hexadecimal
+- Integer rgb() triplet
+- Percentage rgb() triple
+
+%description -n python3-%{module} -l pl.UTF-8
+Biblioteka do pracy z nazwami kolorów oraz formatami wartości kolorów
+określonymi w specyfikacjach HTML i CSS, przeznaczonych do użycia w
+dokumentach WWW.
+
+Obsługiwane są następujące formaty (tylko przestrzeń nazw RGB;
+konwersję do/z HSL można uzyskać korzystając z modułu colorsys
+biblioteki standardowej Pythona):
+- nazwy kolorów określone w specyfikacji
+- sześciocyfrowe wartości szesnastkowe
+- trzycyfrowe wartości szesnastkowe
+- trójki całkowite rgb()
+- trójki procentowe rgb()
+
+%package apidocs
+Summary:	Documentation for Python webcolors module
+Summary(pl.UTF-8):	Dokumentacja do modułu Pythona webcolors
+Group:		Documentation
+
+%description apidocs
+Documentation for Python webcolors module.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja do modułu Pythona webcolors.
+
 %prep
 %setup -q -n %{module}-%{version}
-%{__sed} -i -e 's/^from ez_setup/#from ez_setup/' setup.py
-%{__sed} -i -e 's/^use_setuptools()/#use_setuptools()/' setup.py
 
 %build
+%if %{with python2}
 %py_build
+
+%{__python} -m unittest tests
+%endif
+
+%if %{with python3}
+%py3_build
+
+%{__python3} -m unittest tests
+%endif
+
+%if %{with doc}
+%{__make} -C docs html
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%py_install \
-	--root $RPM_BUILD_ROOT
+
+%if %{with python2}
+%py_install
 
 %py_postclean
+%endif
+
+%if %{with python3}
+%py3_install
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if %{with python2}
 %files
 %defattr(644,root,root,755)
-%{py_sitescriptdir}/%{module}*.py[co]
-%if "%{py_ver}" > "2.4"
-%{py_sitescriptdir}/%{module}-%{version}-*.egg-info
+%doc LICENSE README.rst
+%{py_sitescriptdir}/webcolors.py[co]
+%{py_sitescriptdir}/webcolors-%{version}-*.egg-info
+%endif
+
+%if %{with python3}
+%files -n python3-%{module}
+%defattr(644,root,root,755)
+%doc LICENSE README.rst
+%{py3_sitescriptdir}/webcolors.py
+%{py3_sitescriptdir}/__pycache__/webcolors.cpython-*.py[co]
+%{py3_sitescriptdir}/webcolors-%{version}-*.egg-info
+%endif
+
+%if %{with doc}
+%files apidocs
+%defattr(644,root,root,755)
+%doc docs/_build/html/{_static,*.html,*.js}
 %endif

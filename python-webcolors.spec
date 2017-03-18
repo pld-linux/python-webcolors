@@ -22,11 +22,11 @@ BuildRequires:	python-modules >= 1:2.7
 %if %{with python3}
 Requires:	python3-modules >= 1:3.3
 %endif
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc}
 BuildRequires:	sphinx-pdg
 %endif
-BuildRequires:	sed >= 4.0
 Requires:	python-modules >= 1:2.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

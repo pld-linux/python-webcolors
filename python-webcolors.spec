@@ -10,7 +10,7 @@ Summary:	Library for working with sRGB color specifications as used in HTML and 
 Summary(pl.UTF-8):	Biblioteka do pracy z definicjami kolorów sRGB używanymi w formatach HTML i CSS
 Name:		python-%{module}
 Version:	1.7
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/1c/11/d9fb5a7c872a941ad8b30a4be191253d5a9028834c4d69eab55bb6bc60be/%{module}-%{version}.tar.gz

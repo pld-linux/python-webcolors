@@ -1,7 +1,8 @@
+# NOTE: for versions >= 1.11 (for python 3.5+) see python3-webcolors.spec
 #
 # Conditional build:
 %bcond_without	python2	# CPython 2.x module
-%bcond_without	python3	# CPython 3.x module
+%bcond_with	python3	# CPython 3.x module (built from python3-webcolors.spec)
 %bcond_without	doc	# Sphinx documentation
 %bcond_without	tests	# unit tests
 
@@ -9,6 +10,7 @@
 Summary:	Library for working with sRGB color specifications as used in HTML and CSS
 Summary(pl.UTF-8):	Biblioteka do pracy z definicjami kolorów sRGB używanymi w formatach HTML i CSS
 Name:		python-%{module}
+# keep 1.10.x here for python2 support
 Version:	1.10
 Release:	2
 License:	BSD

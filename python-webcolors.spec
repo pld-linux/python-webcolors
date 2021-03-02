@@ -12,7 +12,7 @@ Summary(pl.UTF-8):	Biblioteka do pracy z definicjami kolorów sRGB używanymi w 
 Name:		python-%{module}
 # keep 1.10.x here for python2 support
 Version:	1.10
-Release:	2
+Release:	3
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://github.com/ubernostrum/webcolors/releases
